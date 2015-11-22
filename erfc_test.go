@@ -39,3 +39,22 @@ func TestInvErfcAlt(t *testing.T) {
 		t.Errorf("InvErfc(%f) == %.15f, want %.15f", x, r, want)
 	}
 }
+
+func TestInvErfcBelow(t *testing.T) {
+	//if y >= 0.0485 && y <= 1.9515 {
+	want := 1.39571526948237878870944781195435062874302991448558450474285005 // http://www.wolframalpha.com/input/?i=InvErfc%5B0.0484%5D
+	x := 0.0484
+	r := InvErfc(x)
+	if !Float64AlmostEq(want, r, epsilon) {
+		t.Errorf("InvErfc(%f) == %.15f, want %.15f", x, r, want)
+	}
+}
+
+func TestInvErfcAbove(t *testing.T) {
+	want := -1.39571526948237878870944781195435062874302991448558450474285005 // http://www.wolframalpha.com/input/?i=InvErfc%5B1.9516%5D
+	x := 1.9516
+	r := InvErfc(x)
+	if !Float64AlmostEq(want, r, epsilon) {
+		t.Errorf("InvErfc(%f) == %.15f, want %.15f", x, r, want)
+	}
+}
